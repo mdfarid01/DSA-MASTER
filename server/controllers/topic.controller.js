@@ -2,6 +2,7 @@ const Topic = require('../models/Topic');
 const Question = require('../models/Question');
 const mongoose = require('mongoose');
 const dsaTopics = require('../data/dsaTopics.json');
+const axios = require('axios');
 
 // Helper to transform JSON data to API format
 const getFallbackTopics = () => {
@@ -10,6 +11,42 @@ const getFallbackTopics = () => {
         slug: slug,
         questions: dsaTopics[slug].questions.map(q => ({ ...q, topic: slug }))
     }));
+};
+
+// @desc    Get all questions (flat list)
+// @route   GET /api/topics/questions
+// @access  Public
+exports.getAllQuestions = async (req, res) => {
+    try {
+        // Fetch from Alfa LeetCode API
+        // Using a limit to avoid overwhelming the frontend/network for now
+        const response = await axios.get('https://alfa-leetcode-api.onrender.com/problems?limit=50');
+        const externalQuestions = response.data.problemsetQuestionList;
+
+        if (!externalQuestions) {
+            // Fallback to local if API fails or returns empty
+            return res.json(getFallbackTopics().flatMap(t => t.questions));
+        }
+
+        const mappedQuestions = externalQuestions.map(q => {
+            // Map to our schema
+            return {
+                title: q.title,
+                slug: q.titleSlug,
+                difficulty: q.difficulty,
+                leetcodeUrl: `https://leetcode.com/problems/${q.titleSlug}`,
+                tags: q.topicTags ? q.topicTags.map(t => t.slug) : [],
+                topic: q.topicTags && q.topicTags.length > 0 ? q.topicTags[0].slug : 'general'
+            };
+        });
+
+        res.json(mappedQuestions);
+    } catch (err) {
+        console.error("External API Error:", err.message);
+        // Fallback on error
+        const fallback = getFallbackTopics().flatMap(t => t.questions);
+        res.json(fallback);
+    }
 };
 
 // @desc    Get all topics
