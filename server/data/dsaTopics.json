@@ -1,0 +1,56 @@
+{
+  "arrays": {
+    "title": "Arrays",
+    "description": "Fundamental data structure for indexed storage",
+    "order": 1,
+    "questions": [
+      {
+        "slug": "two-sum",
+        "title": "Two Sum",
+        "difficulty": "Easy",
+        "leetcodeUrl": "https://leetcode.com/problems/two-sum/",
+        "tags": ["array", "hash-table"],
+        "order": 1
+      },
+      {
+        "slug": "best-time-to-buy-and-sell-stock",
+        "title": "Best Time to Buy and Sell Stock",
+        "difficulty": "Easy",
+        "leetcodeUrl": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+        "tags": ["array", "dynamic-programming"],
+        "order": 2
+      },
+      {
+        "slug": "maximum-subarray",
+        "title": "Maximum Subarray",
+        "difficulty": "Medium",
+        "leetcodeUrl": "https://leetcode.com/problems/maximum-subarray/",
+        "tags": ["array", "divide-and-conquer", "dynamic-programming"],
+        "order": 3
+      }
+    ]
+  },
+  "linkedlist": {
+    "title": "Linked List",
+    "description": "Linear data structure where elements are not stored at contiguous memory locations",
+    "order": 2,
+    "questions": [
+      {
+        "slug": "reverse-linked-list",
+        "title": "Reverse Linked List",
+        "difficulty": "Easy",
+        "leetcodeUrl": "https://leetcode.com/problems/reverse-linked-list/",
+        "tags": ["linked-list", "recursion"],
+        "order": 1
+      },
+      {
+        "slug": "linked-list-cycle",
+        "title": "Linked List Cycle",
+        "difficulty": "Easy",
+        "leetcodeUrl": "https://leetcode.com/problems/linked-list-cycle/",
+        "tags": ["linked-list", "two-pointers"],
+        "order": 2
+      }
+    ]
+  }
+}
