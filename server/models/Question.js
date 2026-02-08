@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const QuestionSchema = new mongoose.Schema({
     slug: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     title: {
         type: String,
@@ -30,5 +29,8 @@ const QuestionSchema = new mongoose.Schema({
         default: 0
     }
 });
+
+// Create compound index for uniqueness on slug + topic
+QuestionSchema.index({ slug: 1, topic: 1 }, { unique: true });
 
 module.exports = mongoose.model('Question', QuestionSchema);
